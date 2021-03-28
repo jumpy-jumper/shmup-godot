@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Enemy/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://FPS.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://stage.gd" type="Script" id=4]
+[ext_resource path="res://dps.gd" type="Script" id=5]
+[ext_resource path="res://border.gd" type="Script" id=6]
+[ext_resource path="res://Donut AoE.png" type="Texture" id=7]
+[ext_resource path="res://Player/north.png" type="Texture" id=8]
+[ext_resource path="res://Player/south.png" type="Texture" id=9]
+[ext_resource path="res://Player/west.png" type="Texture" id=10]
+[ext_resource path="res://Player/east.png" type="Texture" id=11]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 350.0
+
+[node name="Stage" type="Node"]
+script = ExtResource( 4 )
+
+[node name="FPS" parent="." instance=ExtResource( 2 )]
+margin_left = 20.0
+margin_top = 25.0
+margin_bottom = 711.06
+
+[node name="DPS" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -1271.0
+margin_top = 25.0
+margin_right = -20.0
+align = 2
+script = ExtResource( 5 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 640, 360 )
+
+[node name="Border" type="Area2D" parent="."]
+position = Vector2( 640, 360 )
+script = ExtResource( 6 )
+fade_in_threshold = 0.9
+
+[node name="Shape" type="CollisionShape2D" parent="Border"]
+position = Vector2( -11.5636, 2.67267 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Border"]
+modulate = Color( 1, 1, 1, 0.0588235 )
+scale = Vector2( 2.07, 2.07 )
+texture = ExtResource( 7 )
+
+[node name="East" type="Node2D" parent="."]
+position = Vector2( 940, 360 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="East"]
+modulate = Color( 1, 1, 1, 0.509804 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 11 )
+
+[node name="South" type="Node2D" parent="."]
+position = Vector2( 640, 670 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="South"]
+modulate = Color( 1, 1, 1, 0.509804 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 9 )
+
+[node name="West" type="Node2D" parent="."]
+position = Vector2( 340, 360 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="West"]
+modulate = Color( 1, 1, 1, 0.509804 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 10 )
+
+[node name="North" type="Node2D" parent="."]
+position = Vector2( 640, 50 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="North"]
+modulate = Color( 1, 1, 1, 0.509804 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 8 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 640, 480 )
+speed = 700.0
+angular_speed = 7.0
+visible_green_indicator = false
+bullet_wait = 5
+bullet_spread = 100
+bullet_arc = -250
+bullet_speed = 500
+bullet_accel = 10000
+bullet_color_focused = [ Color( 0.921569, 0.658824, 0.447059, 1 ), Color( 0.721569, 0.862745, 0.65098, 1 ), Color( 0, 0, 0, 1 ), Color( 0.721569, 0.862745, 0.65098, 1 ), Color( 0.921569, 0.658824, 0.447059, 1 ) ]
+bullet_alpha = 1.0
+[connection signal="beat" from="." to="Player" method="_on_Stage_beat"]
+[connection signal="beat" from="." to="." method="_on_Stage_beat"]
+[connection signal="damage_taken" from="Enemy" to="DPS" method="_on_Enemy_damage_taken"]

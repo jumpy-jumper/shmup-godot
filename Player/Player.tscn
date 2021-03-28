@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/Player.png" type="Texture" id=2]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player/Hatsu.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.3398
+
+[node name="Player" type="Area2D"]
+position = Vector2( 620.35, 620.35 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 1 )
+speed = 1500.0
+bullet = ExtResource( 3 )
+bullet_wait = 4
+bullet_vertical_offset = 0
+bullet_accel = 0
+bullet_color_unfocused = [ Color( 0.815686, 0.607843, 0.639216, 1 ), Color( 0.627451, 0.831373, 0.815686, 1 ), Color( 1, 1, 1, 1 ), Color( 0.627451, 0.831373, 0.815686, 1 ), Color( 0.815686, 0.607843, 0.639216, 1 ) ]
+bullet_color_focused = [ Color( 0.921569, 0.658824, 0.447059, 1 ), Color( 0.721569, 0.862745, 0.65098, 1 ) ]
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Skills" type="Node2D" parent="."]
+
+[node name="Green" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.337255 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 4 )

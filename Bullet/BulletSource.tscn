@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Bullet/BulletSource.gd" type="Script" id=1]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Bullet/Circle.png" type="Texture" id=3]
+
+[node name="BulletSource" type="Node2D"]
+position = Vector2( 79.423, 60.5607 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+bullet = ExtResource( 2 )
+rate = 3
+lifetime = 120
+speed = 3000.0
+ang_accel = 500.0
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.196078 )
+texture = ExtResource( 3 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
